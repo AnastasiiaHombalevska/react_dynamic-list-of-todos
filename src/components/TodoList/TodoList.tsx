@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Todo } from '../../types/Todo';
 
 type Props = {
   todoList: Todo[];
+  selectedTodo?: Todo | null;
   showTodoDetails: (value: number) => void;
 };
 
-export const TodoList: React.FC<Props> = ({ todoList, showTodoDetails }) => {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (selectedId !== null) {
-      showTodoDetails(selectedId);
-    }
-  }, [selectedId, showTodoDetails]);
-
-  const handleTodoSelection = (id: number) => {
-    setSelectedId(prevSelectedId => (prevSelectedId === id ? null : id));
-  };
-
+export const TodoList: React.FC<Props> = ({
+  todoList,
+  selectedTodo,
+  showTodoDetails = () => {},
+}) => {
   return (
     <table className="table is-narrow is-fullwidth">
       <thead>
@@ -40,7 +32,7 @@ export const TodoList: React.FC<Props> = ({ todoList, showTodoDetails }) => {
             key={todo.id}
             data-cy="todo"
             className={classNames({
-              'has-background-info-light': selectedId === todo.id,
+              'has-background-info-light': selectedTodo?.id === todo.id,
             })}
           >
             <td className="is-vcentered">{todo.id}</td>
@@ -65,13 +57,13 @@ export const TodoList: React.FC<Props> = ({ todoList, showTodoDetails }) => {
                 data-cy="selectButton"
                 className="button"
                 type="button"
-                onClick={() => handleTodoSelection(todo.id)}
+                onClick={() => showTodoDetails(todo.id)}
               >
                 <span className="icon">
                   <i
                     className={classNames('far', {
-                      'fa-eye-slash': selectedId === todo.id,
-                      'fa-eye': selectedId !== todo.id,
+                      'fa-eye-slash': selectedTodo?.id === todo.id,
+                      'fa-eye': selectedTodo?.id !== todo.id,
                     })}
                   />
                 </span>

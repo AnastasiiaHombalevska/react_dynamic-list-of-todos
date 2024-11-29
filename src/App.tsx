@@ -39,7 +39,7 @@ export const App: React.FC = () => {
   }, []);
 
   const handleQueryChange = (value: string) => {
-    setQuery(value);
+    setQuery(value.trim().toLowerCase());
   };
 
   const handleSelectChange = (value: string) => {
@@ -51,7 +51,7 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const todos = filteringTodo(todoList, selectFiltering, query);
+    const todos = filteringTodo(todoList, query, selectFiltering);
 
     setFilteredTodos(todos || []);
   }, [query, selectFiltering, todoList]);
@@ -61,10 +61,10 @@ export const App: React.FC = () => {
       return;
     }
 
-    const selectedTodoId = todoList.find(todo => todo.id === id);
+    const todo1 = todoList.find(todo => todo.id === id);
 
-    if (selectedTodoId) {
-      setSelectedTodo(selectedTodoId);
+    if (todo1) {
+      setSelectedTodo(todo1);
       setIsActive(true);
     }
   };
@@ -95,6 +95,7 @@ export const App: React.FC = () => {
             {filteredTodos && (
               <TodoList
                 todoList={filteredTodos}
+                selectedTodo={selectedTodo}
                 showTodoDetails={showTodoDetails}
               />
             )}

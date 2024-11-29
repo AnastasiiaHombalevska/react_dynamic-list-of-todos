@@ -5,10 +5,10 @@ const COMPLETED = 'completed';
 
 export const filteringTodo = (
   todoList: Todo[] | null,
-  filteringParams: string,
+  query: string,
   selectFiltering: string = '',
 ): Todo[] => {
-  const validFilteringParams = filteringParams.trim().toLowerCase();
+  const validQuery = query.trim().toLowerCase();
   let filteredTodos: Todo[] = [];
 
   if (todoList) {
@@ -21,7 +21,7 @@ export const filteringTodo = (
     }
 
     filteredTodos = filteredTodos.filter(todo =>
-      todo.title.toLowerCase().includes(validFilteringParams),
+      todo.title.toLowerCase().includes(validQuery),
     );
   }
 
