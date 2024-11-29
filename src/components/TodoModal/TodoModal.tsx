@@ -20,7 +20,7 @@ export const TodoModal: React.FC<Props> = ({
   userId,
   isActive,
   onClose,
-}) => {
+}: Props) => {
   const [userData, setUserData] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
