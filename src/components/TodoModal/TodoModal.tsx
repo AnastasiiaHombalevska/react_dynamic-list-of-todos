@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Loader } from '../Loader';
-import classNames from 'classnames';
 import { getUser } from '../../api';
 import { User } from '../../types/User';
 
@@ -9,7 +8,6 @@ type Props = {
   title: string;
   completed: boolean;
   userId: number;
-  isActive: boolean;
   onClose: () => void;
 };
 
@@ -18,7 +16,6 @@ export const TodoModal: React.FC<Props> = ({
   title,
   completed,
   userId,
-  isActive,
   onClose,
 }: Props) => {
   const [userData, setUserData] = useState<User | null>(null);
@@ -43,11 +40,8 @@ export const TodoModal: React.FC<Props> = ({
   }, [userId]);
 
   return (
-    <div
-      className={classNames('modal', { 'is-active': isActive })}
-      data-cy="modal"
-    >
-      <div className={classNames({ 'modal-background': isActive })} />
+    <div className="modal is-active" data-cy="modal">
+      <div className="modal-background" />
 
       {isLoading ? (
         <Loader />

@@ -108,7 +108,6 @@ export const App: React.FC = () => {
           title={selectedTodo.title}
           completed={selectedTodo.completed}
           userId={selectedTodo.userId}
-          isActive={isActive}
           onClose={closeModal}
         />
       )}
